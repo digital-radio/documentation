@@ -43,6 +43,32 @@ interface wlan0
     nohook wpa_supplicant
 ```
 
+### Enable routing and IP masquerading
+This section configures the Raspberry Pi to let wireless clients access other network (e.g. Ethernet), and be accessed from this network. You can use this technique to allow ssh comunication with the Raspberry Pi by usb cable while setting up the wifi hotspot.
+
+Allow traffic to flow from one network to the other in the Raspberry Pi - create a file
+```
+/etc/sysctl.d/routed-ap.conf
+```
+with the following content 
+```
+# https://www.raspberrypi.org/documentation/configuration/wireless/access-point-routed.md
+# Enable IPv4 routing
+net.ipv4.ip_forward=1
+```
+
+Raspberry Pi can substitute the IP address of wireless clients with its own IP address on the LAN using a "masquerade" firewall rule
+
+Add a single firewall rule in the Raspberry Pi - to allow for usb connection
+```bash
+sudo iptables -t nat -A POSTROUTING -o usb0 -j MASQUERADE
+```
+
+Save the current firewall rules
+```bash 
+sudo netfilter-persistent save
+```
+
 ### Configure the DHCP and DNS services for the wireless network
 
 Rename the default configuration file and edit a new one:
