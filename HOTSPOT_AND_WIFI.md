@@ -20,6 +20,14 @@ Install dnsmasq so that Raspberry Pi can provide network management services (DN
 ```bash 
 sudo apt install dnsmasq
 ```
+### Configure wifi interface
+Add the following to the file /etc/network/interfaces
+```
+auto wlan0
+iface wlan0 inet dhcp
+  wpa-ssid "YOURSSID"
+  wpa-psk "YOURPSK"
+```
 
 ### Configure the DHCP and DNS services for the wireless network
 
