@@ -57,6 +57,25 @@ Tell where the defaul config is. Add the following to the file /etc/default/host
 ```
 DAEMON_CONF="/etc/hostapd/hostapd.conf"
 ```
+
+### Configure the access point software 
+Create file hostapd.conf.tmpl in the directory /etc/hostapd/ and add following to the file
+```
+country_code=PLN
+interface=uap0
+ssid=Malina
+hw_mode=g
+channel=${CHANNEL}
+macaddr_acl=0
+auth_algs=1
+ignore_broadcast_ssid=0
+wpa=2
+wpa_passphrase=CudMalina
+wpa_key_mgmt=WPA-PSK
+wpa_pairwise=TKIP
+rsn_pairwise=CCMP
+```
+
 ### Create start script in /usr/local/bin
 ```
 #!/bin/bash
